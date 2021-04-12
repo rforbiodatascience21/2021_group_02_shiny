@@ -3,6 +3,7 @@ library(shiny)
 ui <- fluidPage(
   # App title 
   titlePanel("Generate random DNA"),
+  selectInput("output_type", label = "Nucleotide type", choices = c("RNA", "DNA")),
   numericInput(inputId = "n",
                "Length of the random DNA string", value = 50),
   verbatimTextOutput("txtout")
@@ -11,16 +12,22 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   output$txtout <- renderText({
     
-    random_dna <- function(l){
-      nucleotides <- sample(c("A", "T", "G", "C"), size = l, replace = TRUE)
+    random_dna <- function(t,l){
+      if (t == "RNA") {
+        nuc = c("A", "U", "G", "C")
+      }
+      else  {
+        nuc = c("A", "T", "G", "C")
+      }
+      nucleotides <- sample(nuc, size = l, replace = TRUE)
       dna = paste0(nucleotides, collapse = "")
-      header = paste("> Random dna string with length", toString(l), sep = " ")
+      header = paste("> Random Nucleotide string with length", toString(l), sep = " ")
       fasta = paste(header, dna, sep = "\n")
       
       return(fasta)
     
     }
-    paste(random_dna(input$n))
+    paste(random_dna(input$output_type, input$n))
   }) 
 }
 
