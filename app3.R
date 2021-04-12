@@ -2,10 +2,10 @@ library(shiny)
 
 ui <- fluidPage(
   # App title 
-  titlePanel("Generate random DNA"),
-  selectInput("output_type", label = "Nucleotide type", choices = c("RNA", "DNA")),
+  titlePanel("Generate random sequence (DNA, RNA, Protein)"),
+  selectInput("output_type", label = "Sequence type", choices = c("RNA", "DNA", "Protein")),
   numericInput(inputId = "n",
-               "Length of the random DNA string", value = 50),
+               "Length of the random sequence", value = 50),
   verbatimTextOutput("txtout")
 )
 
@@ -14,15 +14,20 @@ server <- function(input, output, session) {
     
     random_dna <- function(t,l){
       if (t == "RNA") {
-        nuc = c("A", "U", "G", "C")
+        seq = c("A", "U", "G", "C")
       }
-      else {
-        nuc = c("A", "T", "G", "C")
+      else if (t == "DNA") {
+        seq = c("A", "T", "G", "C")
       }
-      nucleotides <- sample(nuc, size = l, replace = TRUE)
-      dna = paste0(nucleotides, collapse = "")
-      header = paste("> Random Nucleotide string with length", toString(l), sep = " ")
-      fasta = paste(header, dna, sep = "\n")
+      else if (t == "Protein") {
+        seq = c("F","S","Y","L","P","H","R",
+                "K","D","E","T","N","Q","C",
+                "U","G","A","V","I", "M", "W" )
+      }
+      nucleotides <- sample(seq, size = l, replace = TRUE)
+      fullSeq = paste0(nucleotides, collapse = "")
+      header = paste("> Random sequence with length", toString(l), sep = " ")
+      fasta = paste(header, fullSeq, sep = "\n")
       
       return(fasta)
       
