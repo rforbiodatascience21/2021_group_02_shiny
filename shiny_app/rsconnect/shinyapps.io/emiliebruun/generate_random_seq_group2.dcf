@@ -1,0 +1,13 @@
+name: generate_random_seq_group2
+title: generate_random_seq_group2
+username:
+account: emiliebruun
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3947788
+bundleId: 4460050
+url: https://emiliebruun.shinyapps.io/generate_random_seq_group2/
+when: 1618218809.1004
+lastSyncTime: 1618218809.10041
+asMultiple: FALSE
+asStatic: FALSE
