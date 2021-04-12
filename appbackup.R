@@ -16,7 +16,7 @@ server <- function(input, output, session) {
       if (t == "RNA") {
         nuc = c("A", "U", "G", "C")
       }
-      else {
+      if (t == "DNA") {
         nuc = c("A", "T", "G", "C")
       }
       nucleotides <- sample(nuc, size = l, replace = TRUE)
